@@ -1,0 +1,4 @@
+<%= form_for(task,:remote => true) do |f| %>
+  <div><%= f.hidden_field :is_done, :value=>!task.is_done %></div>
+  <%= f.submit "UnDone", class: "btn btn-default" %>
+<% end %>

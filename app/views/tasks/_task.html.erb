@@ -11,6 +11,11 @@
   <% if task.deadline.present? %>
     <%= task.deadline %>
   <% end %>
+  <% if task.is_done %>
+    <%= render 'tasks/undone', task: task %>
+  <% else %>
+    <%= render 'tasks/done', task: task %>
+  <% end %>
   <%= link_to "delete", task, method: :delete,
                                        data: { confirm: "You sure?" } %>
   
