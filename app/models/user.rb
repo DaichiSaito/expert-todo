@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy #タスクを複数持つ。ユーザーが削除されたらタスクも同時に削除する。
   
   
-  def myTask
-    Task.where("user_id = ?", id)
-  end
+  # def myTask
+  #   Task.where("user_id = ?", id)
+  # end
 end

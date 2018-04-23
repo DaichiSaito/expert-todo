@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
     before_action :set_task, only: [:show, :edit, :update, :destroy]
-    before_action :correct_user, only: [:show, :edit, :update, :destroy]
+    # before_action :correct_user, only: [:show, :edit, :update, :destroy]
     def index
         
     end
@@ -45,18 +45,19 @@ class TasksController < ApplicationController
     
     private
       def task_params
-        params.require(:task).permit(:content,:description,:deadline,:is_done)
+        params.require(:task).permit(:content,:description,:deadline,:is_done,attachments_attributes: [:image])
       end
       
       def set_task
-        @task = Task.find(params[:id])
+        # @task = Task.find(params[:id])
+        @task = current_user.tasks.find(params[:id])
       end
       
       # 自分のではないタスクにアクセスしようとした場合はエラー
       def correct_user
         if current_user.id != @task.user_id
           flash[:danger] = "不正アクセス"
-          redirect_to(root_url) unless current_user.id == @task.user_id
+          redirect_to(root_url)
         end
       end
 end
