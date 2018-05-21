@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'attachments/create'
+
+  get 'attachments/destroy'
+
   # / でアクセスした時はstatic_pagesコントローラーのhomeアクション
   root 'static_pages#home'
 

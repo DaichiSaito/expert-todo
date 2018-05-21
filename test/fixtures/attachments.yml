@@ -2,8 +2,8 @@
 
 one:
   location: MyString
-  references: 
+  task: one
 
 two:
   location: MyString
-  references: 
+  task: two
