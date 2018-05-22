@@ -11,6 +11,13 @@
   <% if task.deadline.present? %>
     <%= task.deadline %>
   <% end %>
+  
+  <% if task.attachments.present? %>
+    <% task.attachments.each do |attachment| %>
+      <%= image_tag attachment.location %>
+    <% end %>
+  <% end %>
+  
   <% if task.is_done %>
     <%= render 'tasks/undone', task: task %>
   <% else %>

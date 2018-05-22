@@ -8,15 +8,20 @@ class TasksController < ApplicationController
     def new
       # buildってなんだろう。引数がないbuildは空の箱を作ってるイメージかな？
       @task = current_user.tasks.build
+      @task.attachments.build
     end
     
     def edit
       # before_actionで設定することにしたのでこの記述は不要になった。
       # @task = Task.find(params[:id])
+      
     end
     def create
       @task = current_user.tasks.build(task_params)
       if @task.save
+        params[:attachments]['location'].each do |loc|
+          @attachment = @task.attachments.create!(location: loc)
+        end
         flash[:success] = "タスクを生成しました!"
         redirect_to root_url
       else
@@ -28,6 +33,9 @@ class TasksController < ApplicationController
     
     def update
       if @task.update(task_params)
+        params[:attachments]['location'].each do |loc|
+          @attachment = @task.attachments.create!(location: loc)
+        end
         flash[:success] = "タスクを更新しました！"
         redirect_to root_url
       else
@@ -45,7 +53,7 @@ class TasksController < ApplicationController
     
     private
       def task_params
-        params.require(:task).permit(:content,:description,:deadline,:is_done,attachments_attributes: [:image])
+        params.require(:task).permit(:content,:description,:deadline,:is_done)
       end
       
       def set_task

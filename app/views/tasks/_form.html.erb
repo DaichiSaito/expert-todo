@@ -16,6 +16,32 @@
           <%= f.label :deadline %>
           <%= f.date_select :deadline, use_month_numbers: true, include_blank: true %>
         </div>
+
+<%#
+=begin
+%>
+        <div class="form-group">
+          <%= f.label :attachments %>
+          <%= f.fields_for :attachments do |attachment| %>
+            <%= attachment.file_field :location, multiple: true, name: "attachments[location][]" %>
+          <% end %>
+        </div>
+<%#
+=end
+%>
+
+<%
+=begin
+%>
+        <% if @task.attachments.present? %>
+          <% @task.attachments.each do |attachment| %>
+            <%= image_tag attachment.location %>
+          <% end %>
+        <% end %>
+<%
+=end
+%>
+        <!--<input type="file" name="attachments[]" multiple accept="image/*">-->
         
         <%= f.submit "Post", class: "btn btn-primary" %>
       <% end %>
