@@ -49,14 +49,7 @@ class TasksController < ApplicationController
       end
       
       def set_task
-        @task = Task.find(params[:id])
+        @task = current_user.tasks.find(params[:id])
       end
       
-      # 自分のではないタスクにアクセスしようとした場合はエラー
-      def correct_user
-        if current_user.id != @task.user_id
-          flash[:danger] = "不正アクセス"
-          redirect_to(root_url) unless current_user.id == @task.user_id
-        end
-      end
 end
