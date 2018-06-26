@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_task, only: [:show, :edit, :update, :destroy]
+    before_action :set_task, only: [:show, :edit, :update, :destroy, :open, :close]
     
     def index
       @tasks = current_user.tasks
@@ -52,9 +52,21 @@ class TasksController < ApplicationController
       redirect_to request.referrer || root_url
     end
     
+    def open 
+      @task.open!
+      flash[:success] = "タスクの完了を取り消しました。"
+      redirect_to root_url
+    end
+    
+    def close 
+      @task.closed!
+      flash[:success] = "タスクを完了しました。"
+      redirect_to root_url
+    end
+    
     private
       def task_params
-        params.require(:task).permit(:content,:description,:deadline,:is_done)
+        params.require(:task).permit(:content,:description,:deadline, :status)
       end
       
       def set_task

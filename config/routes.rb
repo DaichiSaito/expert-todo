@@ -7,7 +7,12 @@ Rails.application.routes.draw do
   resources :tasks
   
   authenticated :user do
-    resources :tasks
+    resources :tasks do
+      member do
+        patch :open
+        patch :close
+      end
+    end
     root to: "tasks#index"
   end
 

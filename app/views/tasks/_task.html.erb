@@ -18,11 +18,12 @@
     <% end %>
   <% end %>
   
-  <% if task.is_done %>
-    <%= render 'tasks/undone', task: task %>
+  <% if task.closed? %>
+    <%= link_to 'open', open_task_path(task), method: :patch, data: { confirm: 'Are you sure?' } %>
   <% else %>
-    <%= render 'tasks/done', task: task %>
+    <%= link_to 'close', close_task_path(task), method: :patch, data: { confirm: 'Are you sure?' } %>
   <% end %>
+  
   <%= link_to "delete", task, method: :delete,
                                        data: { confirm: "You sure?" } %>
   
