@@ -3,10 +3,13 @@ Rails.application.routes.draw do
 
   get 'attachments/destroy'
 
-  # / でアクセスした時はstatic_pagesコントローラーのhomeアクション
-  root 'static_pages#home'
-
   devise_for :users
   resources :tasks
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  
+  authenticated :user do
+    resources :tasks
+    root to: "tasks#index"
+  end
+
+  root to: "static_pages#home"
 end
