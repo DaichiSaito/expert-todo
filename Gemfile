@@ -37,6 +37,8 @@ gem 'devise'
 gem 'bootstrap-sass', '3.3.6'
 gem 'jquery-rails', '4.1.1'
 
+gem 'carrierwave', '~> 1.0'
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
